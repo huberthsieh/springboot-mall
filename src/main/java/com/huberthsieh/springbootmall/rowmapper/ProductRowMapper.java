@@ -17,12 +17,12 @@ public class ProductRowMapper implements RowMapper<Product> {
         product.setProductName(resultSet.getString("product_name"));
 
         // String 轉 Enum 類別
+        // return回給前端時，需要toString()轉換回字串類別
         String categoryStr = resultSet.getString("category");
         ProductCategory category = ProductCategory.valueOf(categoryStr);
         product.setCategory(category);
 
         // product.setCategory(ProductCategory.valueOf(resultSet.getString("category")));
-
 
         product.setImageUrl(resultSet.getString("image_url"));
         product.setPrice(resultSet.getInt("price"));
