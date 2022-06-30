@@ -23,8 +23,20 @@ public class ProductDaoImpl implements ProductDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Product getProductById(Integer productId) {
+    public List<Product> getProducts() {
+        String sql = "SELECT product_id, product_name, category, image_url, price, stock, " +
+                "description, created_date, last_modified_date " +
+                "FROM product";
 
+        Map<String, Object> map = new HashMap<>();
+
+        List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
+
+        return productList;
+    }
+
+    @Override
+    public Product getProductById(Integer productId) {
         String sql = "SELECT product_id, product_name, category, image_url, price, stock, " +
                 "description, created_date, last_modified_date " +
                 "FROM product WHERE product_id = :productId";
@@ -35,12 +47,12 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
         Product product = productList.size() > 0 ? productList.get(0) : null;
+
         return product;
     }
 
     @Override
     public Integer createProduct(ProductRequest productRequest) {
-
         String sql = "INSERT INTO product (product_name, category, image_url, price, stock, description, created_date, last_modified_date) " +
                 "VALUES (:productName, :category, :imageUrl, :price, :stock, :description, :createDate, :lastModifiedDate)";
 
@@ -67,7 +79,6 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void updateProduct(Integer productId, ProductRequest productRequest) {
-
         String sql = "UPDATE product SET product_name = :productName, category = :category, image_url = :imageUrl, " +
                 "price = :price, stock = :stock, description = :description, last_modified_date = :lastModifiedDate " +
                 "WHERE product_id = :productId";
@@ -88,7 +99,6 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void deleteProductById(Integer productId) {
-
         String sql = "DELETE FROM product WHERE product_id = :productId";
 
         Map<String, Object> map = new HashMap<>();
