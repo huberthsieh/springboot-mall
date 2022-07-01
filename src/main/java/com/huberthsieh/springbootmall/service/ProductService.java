@@ -1,13 +1,13 @@
 package com.huberthsieh.springbootmall.service;
 
-import com.huberthsieh.springbootmall.constant.ProductCategory;
+import com.huberthsieh.springbootmall.dto.ProductQueryParams;
 import com.huberthsieh.springbootmall.dto.ProductRequest;
 import com.huberthsieh.springbootmall.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 
     Product getProductById(Integer productId);
 

@@ -1,7 +1,6 @@
 package com.huberthsieh.springbootmall.dto;
 
 import com.huberthsieh.springbootmall.constant.ProductCategory;
-import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
 
